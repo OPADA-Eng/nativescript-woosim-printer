@@ -4,7 +4,7 @@ var application = require("application");
 declare var com: any, android: any;
 export class WoosimPrinter extends Common {
     public cPCLPrinter;
-    public ptrConn;
+    public ptrConn: com.ticnat.prtsrv.BluetoothPrintService;
     public bluetoothAdapter: any;
     public bluetoothPermissions: BluetoothPermissions;
     public bluetoothDevice: any;
@@ -23,7 +23,14 @@ export class WoosimPrinter extends Common {
             this.bluetoothPermissions.requestCoarseLocationPermission();
         }
         // this.bluetoothAdapter = android.bluetooth.BluetoothAdapter.getDefaultAdapter();
-        this.ptrConn = new com.woosim.btprint.BluetoothPrintService(new android.os.Handler());
+        // console.dir(com.woosim.btprint.BluetoothPrintService);
+        let handler = new android.os.Handler();
+        // console.dir(handler);
+        this.ptrConn = new com.ticnat.prtsrv.BluetoothPrintService(handler);
+        this.bluetoothAdapter = this.ptrConn.mAdapter;
+        // console.dir(this.ptrConn.bluetoothAdapter);
+        // console.dir(this.ptrConn);
+        // this.ptrConn.start();
         // console.log("constructing SewooPrinter", this.charset);
         // if (this.charset != '')
         //     this.cPCLPrinter = new com.sewoo.jpos.printer.CPCLPrinter(this.charset);
@@ -49,89 +56,89 @@ export class WoosimPrinter extends Common {
         return Toast.makeText(application.android.context, text, d);
     }
     public isConnected() {
-        return this.ptrConn.isConnected();
+        // return this.ptrConn.isConnected();
     }
 
     public connect(address: string) {
         if (this.ptrConn != null && address != '') {
             // if (this.bluetoothDevice == null)
             //     this.bluetoothDevice = new android.bluetooth.BluetoothDevice(address);
-            if (this.bluetoothAdapter.isEnabled()) {
-                this.ptrConn.connect(this.bluetoothAdapter.getRemoteDevice(address), true);
-                // let rh = new com.sewoo.request.android.RequestHandler();
-                // this.hThread = new java.lang.Thread(rh);
-                // this.hThread.start();
-                this.address = address;
-                this.Toast("Connected To: " + address, "long").show();
-                if (this.debug)
-                    console.log("Connected To: " + address);
-            }
-            else {
-                this.bluetoothAdapter.enable();
-                this.Toast("Bluetooth enabled press button again to connect ", "long").show();
-                if (this.debug)
-                    console.log("Bluetooth enabled press button again to connect ");
-                // this.ptrConn.connect(address);
-            }
+            // if (this.bluetoothAdapter.isEnabled()) {
+            this.ptrConn.connect(this.bluetoothAdapter.getRemoteDevice(address), true);
+            // let rh = new com.sewoo.request.android.RequestHandler();
+            // this.hThread = new java.lang.Thread(rh);
+            // this.hThread.start();
+            this.address = address;
+            this.Toast("Connected To: " + address, "long").show();
+            if (this.debug)
+                console.log("Connected To: " + address);
+            // }
+            // else {
+            //     this.bluetoothAdapter.enable();
+            //     this.Toast("Bluetooth enabled press button again to connect ", "long").show();
+            //     if (this.debug)
+            //         console.log("Bluetooth enabled press button again to connect ");
+            //     // this.ptrConn.connect(address);
+            // }
         }
     }
 
     public disconnect() {
         if (this.ptrConn != null) {
-            this.ptrConn.disconnect();
+            this.ptrConn.stop();
             this.Toast("Disconnected From: " + this.address, "long").show();
             if (this.debug)
                 console.log("Disconnected From: " + this.address);
-            if ((this.hThread != null) && (this.hThread.isAlive()))
-                this.hThread.interrupt();
+            // if ((this.hThread != null) && (this.hThread.isAlive()))
+            //     this.hThread.interrupt();
         }
     }
 
 
     public printImg(bitmap, setExtraPaddingAfterPrint = true, XResol = 200, YResol = 200, startX = 0, startY = 0) {
-        if (this.ptrConn.isConnected()) {
-            let lableHieght = bitmap.getHeight();
-            if (setExtraPaddingAfterPrint) {
-                lableHieght += 100;
-            }
-            this.cPCLPrinter.setForm(0, XResol, YResol, lableHieght, 1);
-            this.cPCLPrinter.setMedia(com.sewoo.jpos.command.CPCLConst.LK_CPCL_CONTINUOUS);
-            // console.dir(self.cPCLPrinter);   
-            // console.log("Width×Height: ", bitmap.getWidth(), bitmap.getHeight());
-            try {
-                // let ScaledBMP = android.graphics.Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight());
-                this.Toast("Printing Image ...", "long").show();
-                if (this.debug)
-                    console.log("Printing Image ...");
-                this.cPCLPrinter.printBitmap(bitmap, startX, startY);
-            }
-            catch (e) {
-                console.log(e);
-            }
-            this.cPCLPrinter.printForm();
+        // if (this.ptrConn.isConnected()) {
+        let lableHieght = bitmap.getHeight();
+        if (setExtraPaddingAfterPrint) {
+            lableHieght += 100;
         }
-        else {
-            console.log("printer is not connected");
-            this.Toast("Printer is not connected", "long").show();
+        this.cPCLPrinter.setForm(0, XResol, YResol, lableHieght, 1);
+        this.cPCLPrinter.setMedia(com.sewoo.jpos.command.CPCLConst.LK_CPCL_CONTINUOUS);
+        // console.dir(self.cPCLPrinter);   
+        // console.log("Width×Height: ", bitmap.getWidth(), bitmap.getHeight());
+        try {
+            // let ScaledBMP = android.graphics.Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight());
+            this.Toast("Printing Image ...", "long").show();
+            if (this.debug)
+                console.log("Printing Image ...");
+            this.cPCLPrinter.printBitmap(bitmap, startX, startY);
         }
+        catch (e) {
+            console.log(e);
+        }
+        this.cPCLPrinter.printForm();
+        // }
+        // else {
+        //     console.log("printer is not connected");
+        //     this.Toast("Printer is not connected", "long").show();
+        // }
     }
 
     public print(text: string) {
 
-        if (this.ptrConn.isConnected()) {
-            // console.log("printing: " + text);    
-            this.cPCLPrinter.setForm(0, 200, 200, 100, 1);
-            this.cPCLPrinter.setMedia(com.sewoo.jpos.command.CPCLConst.LK_CPCL_CONTINUOUS);
-            this.cPCLPrinter.printAndroidFont(text, this.paperSize, 26, 0, com.sewoo.jpos.command.ESCPOSConst.LK_ALIGNMENT_CENTER);
-            // this.cPCLPrinter.printCPCL2DBarCode(0, com.sewoo.jpos.command.CPCLConst.LK_CPCL_BCS_QRCODE, 150, 400, 5, 0, 1, 0, "http://www.miniprinter.com");
-            this.Toast("Printing Text ...", "long").show();
-            if (this.debug)
-                console.log("Printing Text ...");
-            this.cPCLPrinter.printForm();
-        }
-        else {
-            console.log("printer is not connected");
-            this.Toast("Printer is not connected", "long").show();
-        }
+        // if (this.ptrConn.isConnected()) {
+        // console.log("printing: " + text);    
+        this.cPCLPrinter.setForm(0, 200, 200, 100, 1);
+        this.cPCLPrinter.setMedia(com.sewoo.jpos.command.CPCLConst.LK_CPCL_CONTINUOUS);
+        this.cPCLPrinter.printAndroidFont(text, this.paperSize, 26, 0, com.sewoo.jpos.command.ESCPOSConst.LK_ALIGNMENT_CENTER);
+        // this.cPCLPrinter.printCPCL2DBarCode(0, com.sewoo.jpos.command.CPCLConst.LK_CPCL_BCS_QRCODE, 150, 400, 5, 0, 1, 0, "http://www.miniprinter.com");
+        this.Toast("Printing Text ...", "long").show();
+        if (this.debug)
+            console.log("Printing Text ...");
+        this.cPCLPrinter.printForm();
+        // }
+        // else {
+        //     console.log("printer is not connected");
+        //     this.Toast("Printer is not connected", "long").show();
+        // }
     }
 }

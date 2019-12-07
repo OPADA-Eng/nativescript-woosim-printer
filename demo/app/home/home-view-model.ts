@@ -3,7 +3,7 @@ import { WoosimPrinter } from "nativescript-WoosimPrinter";
 
 export class HomeViewModel extends Observable {
     public printer: WoosimPrinter;
-    private _printerAddress = "0007803DBCD5";
+    private _printerAddress = "00:07:80:3D:BC:D5";
     public textToPrint = "";
     public connectVisible = true;
     public disconnectVisible = false;
