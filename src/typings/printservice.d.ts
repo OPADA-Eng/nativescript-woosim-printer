@@ -10,8 +10,11 @@ declare module com {
 				public static MESSAGE_READ: number;
 				public static DEVICE_NAME: string;
 				public static TOAST: string;
+				public constructor(param0: globalAndroid.os.Handler);
+				public connected(param0: globalAndroid.bluetooth.BluetoothSocket, param1: globalAndroid.bluetooth.BluetoothDevice, param2: string): void;
 				public start(): void;
 				public getState(): number;
+				public connect(param0: globalAndroid.bluetooth.BluetoothDevice, param1: boolean): void;
 			}
 			export module BluetoothPrintService {
 				export class ConnectThread {
