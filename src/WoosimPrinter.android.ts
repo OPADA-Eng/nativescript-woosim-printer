@@ -5,9 +5,9 @@ declare var com: any, android: any;
 export class WoosimPrinter extends Common {
     public cPCLPrinter;
     public ptrConn;
-    public bluetoothAdapter: android.bluetooth.BluetoothAdapter;
+    public bluetoothAdapter: any;
     public bluetoothPermissions: BluetoothPermissions;
-    public bluetoothDevice: android.bluetooth.BluetoothDevice;
+    public bluetoothDevice: any;
     public hThread;
     public address: string = "";
     constructor(charset = "", paperSize = 0) {
