@@ -15,10 +15,6 @@ export class Common extends Observable {
   constructor() {
     super();
   }
-
-  public greet() {
-    return "Hello, NS";
-  }
 }
 
 

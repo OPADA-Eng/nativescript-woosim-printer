@@ -5,8 +5,9 @@ declare var com: any, android: any;
 export class WoosimPrinter extends Common {
     public cPCLPrinter;
     public ptrConn;
-    public bluetoothAdapter;
+    public bluetoothAdapter: android.bluetooth.BluetoothAdapter;
     public bluetoothPermissions: BluetoothPermissions;
+    public bluetoothDevice: android.bluetooth.BluetoothDevice;
     public hThread;
     public address: string = "";
     constructor(charset = "", paperSize = 0) {
@@ -21,8 +22,8 @@ export class WoosimPrinter extends Common {
         if (!this.bluetoothPermissions.coarseLocationPermissionGranted()) {
             this.bluetoothPermissions.requestCoarseLocationPermission();
         }
-        this.bluetoothAdapter = android.bluetooth.BluetoothAdapter.getDefaultAdapter();
-        // this.ptrConn = new BluetoothPrintService(mHandler);;
+        // this.bluetoothAdapter = android.bluetooth.BluetoothAdapter.getDefaultAdapter();
+        this.ptrConn = new com.woosim.btprint.BluetoothPrintService(new android.os.Handler());
         // console.log("constructing SewooPrinter", this.charset);
         // if (this.charset != '')
         //     this.cPCLPrinter = new com.sewoo.jpos.printer.CPCLPrinter(this.charset);
@@ -53,11 +54,13 @@ export class WoosimPrinter extends Common {
 
     public connect(address: string) {
         if (this.ptrConn != null && address != '') {
+            // if (this.bluetoothDevice == null)
+            //     this.bluetoothDevice = new android.bluetooth.BluetoothDevice(address);
             if (this.bluetoothAdapter.isEnabled()) {
-                this.ptrConn.connect(address);
-                let rh = new com.sewoo.request.android.RequestHandler();
-                this.hThread = new java.lang.Thread(rh);
-                this.hThread.start();
+                this.ptrConn.connect(this.bluetoothAdapter.getRemoteDevice(address), true);
+                // let rh = new com.sewoo.request.android.RequestHandler();
+                // this.hThread = new java.lang.Thread(rh);
+                // this.hThread.start();
                 this.address = address;
                 this.Toast("Connected To: " + address, "long").show();
                 if (this.debug)
