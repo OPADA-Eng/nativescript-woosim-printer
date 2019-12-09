@@ -12,6 +12,7 @@ export declare class WoosimPrinter extends Common {
   isConnected(): any;
   connect(address: string): void;
   disconnect(): void;
+  printTextFile(file: any): void;
   printImg(bitmap: any, setExtraPaddingAfterPrint?: boolean, XResol?: number, YResol?: number, startX?: number, startY?: number): void;
   print(text: string): void;
 }

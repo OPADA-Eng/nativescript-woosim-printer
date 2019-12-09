@@ -11,9 +11,14 @@ declare module com {
 				public static DEVICE_NAME: string;
 				public static TOAST: string;
 				public mAdapter: globalAndroid.bluetooth.BluetoothAdapter;
+				public static STATE_NONE: number;
+				public static STATE_LISTEN: number;
+				public static STATE_CONNECTING: number;
+				public static STATE_CONNECTED: number;
 				public constructor(param0: globalAndroid.os.Handler);
 				public stop(): void;
 				public connected(param0: globalAndroid.bluetooth.BluetoothSocket, param1: globalAndroid.bluetooth.BluetoothDevice, param2: string): void;
+				public write(param0: native.Array<number>): void;
 				public start(): void;
 				public getState(): number;
 				public connect(param0: globalAndroid.bluetooth.BluetoothDevice, param1: boolean): void;

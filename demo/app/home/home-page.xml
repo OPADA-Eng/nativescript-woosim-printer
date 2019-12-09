@@ -17,6 +17,10 @@
             </GridLayout>
             
             <StackLayout visibility="{{ disconnectVisible ? 'visible' : 'collapse' }}" marginBottom="10">
+                <Label text="connection state:" textWrap="true" />
+                
+                <Label text="{{ printerState }}" textWrap="true" />
+                
                 <Label text="This Content Will be printed with screenshot button"  textWrap="true" />
                 <StackLayout id="printArea" backgroundColor="#ffffff">
                     <Label text="Hello world ... :)" textWrap="true" />
@@ -29,7 +33,11 @@
                 <TextField col="0" hint="Add text here to print..." text="{{ textToPrint }}" />
                 <Button text="Print" tap="{{ print }}" />
             </StackLayout>
+            <Button text="Print Text File"  visibility="{{ disconnectVisible ? 'visible' : 'collapse' }}"  tap="{{ printTextFile }}" />
+
+            <StackLayout id="screenShots">
                 
+            </StackLayout>
             
         </StackLayout>
     </ScrollView>
