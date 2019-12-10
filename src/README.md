@@ -1,8 +1,8 @@
-# NativeScript Sewoo Printer
+# NativeScript Woosim Printer
 
 [![npm version](https://badge.fury.io/js/nativescript-sewoo-printer.svg)](https://badge.fury.io/js/nativescript-sewoo-printer)
 
-This plugin integrate your nativescript app with  `Sewoo LK-P43Ⅱ` printer to print a normal text or a bmp.
+This plugin integrate your nativescript app with  `Woosim Intermec Pr3` printer to print a normal text or a bmp.
 
 ## Prerequisites / Requirements
 
