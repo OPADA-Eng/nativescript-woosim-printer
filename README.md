@@ -1,39 +1,70 @@
-# Your Plugin Name
+# NativeScript Woosim Printer
 
-Add your plugin badges here. See [nativescript-urlhandler](https://github.com/hypery2k/nativescript-urlhandler) for example.
+[![npm version](https://badge.fury.io/js/nativescript-sewoo-printer.svg)](https://badge.fury.io/js/nativescript-sewoo-printer)
 
-Then describe what's the purpose of your plugin. 
+This plugin integrate your nativescript app with  `Woosim Intermec Pr3` printer to print a normal text or a bmp.
 
-In case you develop UI plugin, this is where you can add some screenshots.
+## Prerequisites / Requirements
 
-## (Optional) Prerequisites / Requirements
-
-Describe the prerequisites that the user need to have installed before using your plugin. See [nativescript-firebase plugin](https://github.com/eddyverbruggen/nativescript-plugin-firebase) for example.
+You have to pair your device via bluetooth with the printer before you test the plugin.
+This plugin is now working on `android only`
 
 ## Installation
 
-Describe your plugin installation steps. Ideally it would be something like:
-
-```javascript
-tns plugin add <your-plugin-name>
+```
+tns plugin add nativescript-woosim-printer
 ```
 
 ## Usage 
 
-Describe any usage specifics for your plugin. Give examples for Android, iOS, Angular if needed. See [nativescript-drop-down](https://www.npmjs.com/package/nativescript-drop-down) for example.
+Create Plugin instance
+```
+let printer = new WoosimPrinter();
+```
+
+Connect to the printer through: 
+```
+this.printer.connect(printerAddress); // example: "00:07:80:3D:BC:D5"
+```
+
+To Print Normal Text use:
 	
-	```javascript
-    Usage code snippets here
-    ```)
+```
+printer.print("Hello World");
+```
+To Print a BMP image:
 
-## API
+```
+printer.printImg(bmp);
+```
 
-Describe your plugin methods and properties here. See [nativescript-feedback](https://github.com/EddyVerbruggen/nativescript-feedback) for example.
+To Print Txt File: 
+```
+let documents = fs.knownFolders.currentApp();
+var myFile = documents.getFile("mytextfile.txt");
+this.printer.printTextFile(myFile);
+
+```
+
+for more information see [the demo](https://github.com/OPADA-Eng/nativescript-woosim-printer/tree/master/demo) 
+## API Property
     
-| Property | Default | Description |
+| Property | type | Default | Description |
+| --- | --- | --- | --- |
+| paperSize | enum | PaperSizes.FourInch | set the default paper size for the printer |
+| debug | boolean | false | set the plugin in debug mode |
+
+    
+## API Functions
+
+| Function  | Description | Params |
 | --- | --- | --- |
-| some property | property default value | property description, default values, etc.. |
-| another property | property default value | property description, default values, etc.. |
+| connect(address:string):void | connect to a printer using its address |  address:string ex: "00:13:7B:49:D3:1A" |
+| disconnect():void | disconnect from a printer  |
+| print(text: string): void| print normal text  | text : the text you want to print |
+| printImg(bitmap: globalAndroid.graphics.Bitmap, setExtraPaddingAfterPrint?: boolean, XResol?: number, YResol?: number, startX?: number, startY?: number): void;| print normal bitmap  | bitmap: the image to print, setExtraPaddingAfterPrint: set extra padding after print default true, startX:number specify the position on the paper to start print from on X axis default "0", startY:number specify the position on the paper to start print from on Y axis default "0" |
+| printTextFile(file: any): void; | Print Txt file | File: NS File |
+
     
 ## License
 
