@@ -1,7 +1,7 @@
 {
-	"name": "nativescript-WoosimPrinter",
-	"version": "1.0.0",
-	"description": "Your awesome NativeScript plugin.",
+	"name": "nativescript-woosim-printer",
+	"version": "1.0.1",
+	"description": "Plugin for integrating nativescript apps with Woosim Pr3 Printer.",
 	"main": "WoosimPrinter",
 	"typings": "index.d.ts",
 	"nativescript": {
@@ -12,7 +12,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/OPADA-Eng/nativescript-WoosimPrinter.git"
+		"url": "https://github.com/OPADA-Eng/nativescript-woosim-printer"
 	},
 	"scripts": {
 		"tsc": "npm i && tsc",
@@ -35,17 +35,20 @@
 		"NativeScript",
 		"JavaScript",
 		"Android",
-		"iOS"
+		"iOS",
+		"Woosim",
+		"intermec",
+		"pr3"
 	],
 	"author": {
-		"name": "Your Name",
-		"email": "youremail@yourdomain.com"
+		"name": "Mohammad Opada Al Bosh",
+		"email": "m.opada.albosh@gmail.com"
 	},
 	"bugs": {
-		"url": "https://github.com/OPADA-Eng/nativescript-WoosimPrinter/issues"
+		"url": "https://github.com/OPADA-Eng/nativescript-woosim-printer/issues"
 	},
 	"license": "Apache-2.0",
-	"homepage": "https://github.com/OPADA-Eng/nativescript-WoosimPrinter",
+	"homepage": "https://github.com/OPADA-Eng/nativescript-woosim-printer",
 	"readmeFilename": "README.md",
 	"devDependencies": {
 		"tns-core-modules": "^6.0.0",

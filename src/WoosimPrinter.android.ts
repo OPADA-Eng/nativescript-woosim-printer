@@ -150,7 +150,6 @@ export class WoosimPrinter extends Common {
     }
 
     public print(string: string) {
-
         let text = null;
         if (string == null)
             return;
