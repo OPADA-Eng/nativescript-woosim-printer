@@ -1,6 +1,6 @@
 {
 	"name": "nativescript-woosim-printer",
-	"version": "1.0.4",
+	"version": "1.0.6",
 	"description": "Plugin for integrating nativescript apps with Woosim Pr3 Printer.",
 	"main": "WoosimPrinter",
 	"typings": "index.d.ts",

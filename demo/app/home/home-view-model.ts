@@ -16,7 +16,9 @@ export class HomeViewModel extends Observable {
     constructor(public page) {
         super();
         this.printer = new WoosimPrinter();
-        console.dir(this.printer.ptrConn.getState());
+        // console.dir(this.printer);
+        // console.dir(this.printer.ptrConn.getState());
+        console.log(this.printer.isConnected());
     }
     public get printerAddress() {
         return this._printerAddress;
