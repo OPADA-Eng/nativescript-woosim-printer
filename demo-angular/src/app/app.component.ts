@@ -1,4 +1,4 @@
-import { WoosimPrinter } from 'nativescript-WoosimPrinter';
+import { WoosimPrinter } from 'nativescript-woosim-printer';
 console.log(new WoosimPrinter().message);
 import { Component } from "@angular/core";
 

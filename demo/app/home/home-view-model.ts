@@ -1,5 +1,5 @@
 import { Observable } from "tns-core-modules/data/observable";
-import { WoosimPrinter } from "nativescript-WoosimPrinter";
+import { WoosimPrinter } from "nativescript-woosim-printer";
 import * as imageSrc from "tns-core-modules/image-source";
 import * as Image from "tns-core-modules/ui/image";
 import { View } from "tns-core-modules/ui/core/view/view";
